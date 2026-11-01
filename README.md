@@ -49,4 +49,4 @@
 
 ## ライセンス
 
-[MIT](LICENSE)
+[MIT](LICENSE.md)
