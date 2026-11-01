@@ -3,7 +3,7 @@
   "displayName": "MA Shape Sync Auto",
   "version": "0.1.0",
   "unity": "2022.3",
-  "description": "Automatically sets up Modular Avatar Blendshape Sync between an avatar body and outfit meshes.",
+  "description": "衣装のメッシュに、アバターのボディと共通するシェイプキーの Modular Avatar Blendshape Sync を自動で設定します。",
   "license": "MIT",
   "author": {
     "name": "SakuraWine",

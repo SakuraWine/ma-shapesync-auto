@@ -1,25 +1,40 @@
 # MA Shape Sync Auto
 
-Automatically sets up Modular Avatar **Blendshape Sync** on outfit meshes,
-registering every blendshape that shares a name with the avatar body.
+衣装のメッシュに Modular Avatar の **Blendshape Sync** を自動で設定する Unity エディタ拡張です。
+アバターのボディと名前が一致するシェイプキーを、衣装の各メッシュにまとめて登録します。
 
-## Status
+## 状態
 
-Early release (0.x). Behavior may change between minor versions.
+初期リリース（0.x）です。マイナーバージョンの更新で動作が変わることがあります。
 
-## Requirements
+## 動作環境
 
 - Unity 2022.3
-- Modular Avatar 1.18 or later (below 2.0)
+- Modular Avatar 1.18 以上（2.0 未満）
 - VRChat Avatars SDK
 
-## Usage
+## 使い方
 
-1. Put the outfit inside the avatar (under the object with VRC Avatar Descriptor).
-2. Select the outfit root and open `Tools > SakuraWine > MA Shape Sync Auto`.
-3. Check the auto-detected body and the preview, then press **実行** (Run).
-   Everything can be reverted with a single Ctrl+Z.
+1. 衣装をアバターの中（VRC Avatar Descriptor が付いたオブジェクトの配下）に入れます。
+2. Hierarchy で衣装のルートオブジェクトを選択し、`Tools > SakuraWine > MA Shape Sync Auto` を開きます。
+3. 自動で検出されたボディとプレビューを確認し、**実行** を押します。
+   - ボディが違う場合は、ドロップダウンから選び直せます。
+   - 実行した内容は Ctrl+Z 1 回でまとめて元に戻せます。
 
-## License
+## 仕組み
+
+- **ボディの検出**：アバター配下のメッシュ（衣装の中のものを除く）のうち、衣装と共通するシェイプキーが最も多いものをボディとして選びます。
+  オブジェクト名が `Body` でなくても検出できます。
+- **登録**：衣装配下のすべてのメッシュ（非アクティブなものを含む）について、ボディと名前が一致するシェイプキーを登録します。
+  - 共通するシェイプキーが無いメッシュには、コンポーネントを付けません。
+  - MA Blendshape Sync が既に付いている場合は再利用し、登録済みのシェイプキーは重複して登録しません。
+- **非破壊**：メッシュやシェイプキー自体は変更しません。コンポーネントの追加と設定だけを行います。
+
+## 制限事項
+
+- シェイプキーは**名前が完全に一致するもの**だけを登録します（名前ゆれには未対応）。
+- 同期元として参照するボディは 1 つだけです。シェイプキーが複数のメッシュに分かれているアバターでは、検出されたボディ以外のメッシュにあるシェイプキーは登録されません。
+
+## ライセンス
 
 [MIT](LICENSE)
