@@ -1,0 +1,28 @@
+{
+    "name": "SakuraWine.MAShapeSyncAuto.Editor.Tests",
+    "rootNamespace": "SakuraWine.MAShapeSyncAuto.Tests",
+    "references": [
+        "SakuraWine.MAShapeSyncAuto.Editor",
+        "nadena.dev.modular-avatar.core",
+        "nadena.dev.ndmf.runtime",
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll",
+        "VRCSDKBase.dll",
+        "VRCSDK3A.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
