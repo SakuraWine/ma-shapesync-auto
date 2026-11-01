@@ -5,12 +5,12 @@ registering every blendshape that shares a name with the avatar body.
 
 ## Status
 
-Work in progress.
+Early release (0.x). Behavior may change between minor versions.
 
 ## Requirements
 
 - Unity 2022.3
-- Modular Avatar
+- Modular Avatar 1.18 or later (below 2.0)
 - VRChat Avatars SDK
 
 ## Usage
@@ -19,3 +19,7 @@ Work in progress.
 2. Select the outfit root and open `Tools > SakuraWine > MA Shape Sync Auto`.
 3. Check the auto-detected body and the preview, then press **実行** (Run).
    Everything can be reverted with a single Ctrl+Z.
+
+## License
+
+[MIT](LICENSE)

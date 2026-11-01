@@ -1,11 +1,15 @@
 {
   "name": "io.github.sakurawine.ma-shapesync-auto",
   "displayName": "MA Shape Sync Auto",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "unity": "2022.3",
   "description": "Automatically sets up Modular Avatar Blendshape Sync between an avatar body and outfit meshes.",
+  "license": "MIT",
   "author": {
     "name": "SakuraWine",
     "url": "https://github.com/SakuraWine"
+  },
+  "vpmDependencies": {
+    "nadena.dev.modular-avatar": ">=1.18.0 <2.0.0-a"
   }
 }
