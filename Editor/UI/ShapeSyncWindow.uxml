@@ -1,0 +1,25 @@
+<!--
+  画面の構造（HTML に相当）。ui: は実行時/エディタ共通の要素、uie: はエディタ専用の要素
+  name 属性は C# から Q<T>("name") で探すための ID、class は USS（CSS）で見た目を当てるためのもの
+-->
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:VisualElement class="root">
+        <ui:Label text="MA Shape Sync Auto" class="title" />
+
+        <uie:ObjectField name="outfit-field" label="衣装" />
+        <uie:ObjectField name="avatar-field" label="アバター（自動）" />
+        <!-- ボディの選択欄（PopupField）は候補の型を持つジェネリック要素なので、C# 側で作ってここに入れる -->
+        <ui:VisualElement name="body-container" />
+
+        <!-- 注意・案内メッセージ（HelpBox）を C# 側で入れる場所 -->
+        <ui:VisualElement name="message-container" />
+
+        <ui:Label name="list-header" class="section-header" />
+        <ui:ScrollView name="mesh-list" class="mesh-list" />
+
+        <ui:VisualElement class="buttons">
+            <ui:Button name="refresh-button" text="再検出" />
+            <ui:Button name="run-button" text="実行" class="run-button" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

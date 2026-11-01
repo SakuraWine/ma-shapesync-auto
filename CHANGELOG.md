@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Package skeleton (package.json, Editor asmdef)
-- `Tools/SakuraWine/MA Shape Sync Auto` menu: run with the outfit root selected
+- `Tools/SakuraWine/MA Shape Sync Auto` window (UI Toolkit): pick the outfit,
+  review/override the auto-detected body, preview per-mesh changes, then run
 - Auto-detect the body mesh by counting blendshapes shared with the outfit
 - Add MA Blendshape Sync to every outfit mesh that shares blendshapes with the body
   (reuses existing components, skips already-registered shapes, single Undo step)

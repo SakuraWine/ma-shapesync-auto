@@ -77,32 +77,45 @@ namespace SakuraWine.MAShapeSyncAuto
                 .FirstOrDefault(c => c.Score > 0)?.Renderer;
         }
 
+        // 実行した場合の結果を計算するだけで、何も変更しない（ウィンドウのプレビュー用）
+        public static BindResult Preview(SkinnedMeshRenderer body, GameObject outfitRoot)
+        {
+            return Process(body, outfitRoot, apply: false);
+        }
+
         // 衣装配下の各メッシュに MA Blendshape Sync を設定する。全体を 1 回の Undo にまとめる
         public static BindResult Bind(SkinnedMeshRenderer body, GameObject outfitRoot)
+        {
+            // Undo グループ：この間に記録した操作が Ctrl+Z 1 回でまとめて戻るようにする
+            Undo.IncrementCurrentGroup();
+            var undoGroup = Undo.GetCurrentGroup();
+            Undo.SetCurrentGroupName(UndoName);
+
+            var result = Process(body, outfitRoot, apply: true);
+
+            Undo.CollapseUndoOperations(undoGroup);
+            return result;
+        }
+
+        // Preview と Bind の共通処理。apply = false なら計算だけ、true なら実際に書き換える
+        // 同じコードを通すので、プレビューと実行結果が食い違わない
+        private static BindResult Process(SkinnedMeshRenderer body, GameObject outfitRoot, bool apply)
         {
             // 引数チェック。Rust なら型で防げるところを、C# では実行時に例外を投げて防ぐ
             if (body == null) throw new ArgumentNullException(nameof(body));
             if (outfitRoot == null) throw new ArgumentNullException(nameof(outfitRoot));
             if (body.sharedMesh == null) throw new ArgumentException("Body has no mesh.", nameof(body));
 
-            // Undo グループ：この間に記録した操作が Ctrl+Z 1 回でまとめて戻るようにする
-            Undo.IncrementCurrentGroup();
-            var undoGroup = Undo.GetCurrentGroup();
-            Undo.SetCurrentGroupName(UndoName);
-
             var result = new BindResult { Body = body };
-
             foreach (var renderer in GetOutfitRenderers(outfitRoot))
             {
-                result.Meshes.Add(BindMesh(body, renderer));
+                result.Meshes.Add(ProcessMesh(body, renderer, apply));
             }
-
-            Undo.CollapseUndoOperations(undoGroup);
             return result;
         }
 
         // 衣装メッシュ 1 つ分の処理
-        private static MeshBindResult BindMesh(SkinnedMeshRenderer body, SkinnedMeshRenderer renderer)
+        private static MeshBindResult ProcessMesh(SkinnedMeshRenderer body, SkinnedMeshRenderer renderer, bool apply)
         {
             var meshResult = new MeshBindResult { Renderer = renderer };
 
@@ -122,31 +135,38 @@ namespace SakuraWine.MAShapeSyncAuto
                 return meshResult;
             }
 
-            // 既にあれば再利用、無ければ Undo 付きで追加（Undo.AddComponent なら Ctrl+Z で削除される）
             var sync = renderer.GetComponent<ModularAvatarBlendshapeSync>();
+            // プレビュー時は「新しく付けることになるか」を表す
+            meshResult.ComponentCreated = sync == null;
+
+            // 登録済みのシェイプキー名を集める（コンポーネントが無ければ空）
+            // MA の Bindings.Contains() は「参照先オブジェクトの持ち方」まで比較するので、
+            // 参照パスだけで登録された既存 Binding（Prim など）と別物扱いになり二重登録してしまう。
+            // そこで「実際にボディを指しているか」で判定する
+            var registered = sync == null
+                ? new HashSet<string>()
+                : new HashSet<string>(
+                    sync.Bindings
+                        .Where(b => b.ReferenceMesh != null && b.ReferenceMesh.Get(sync) == body.gameObject)
+                        .Select(b => b.Blendshape));
+
+            // HashSet.Add は「新しく追加できたら true」。Rust の HashSet::insert と同じ
+            var toAdd = common.Where(registered.Add).ToList();
+            meshResult.AddedCount = toAdd.Count;
+            meshResult.Status = toAdd.Count > 0 ? MeshBindStatus.Added : MeshBindStatus.UpToDate;
+
+            // プレビューならここまで。何も書き換えずに返す
+            if (!apply || toAdd.Count == 0) return meshResult;
+
+            // 既にあれば再利用、無ければ Undo 付きで追加（Undo.AddComponent なら Ctrl+Z で削除される）
             if (sync == null)
-            {
                 sync = Undo.AddComponent<ModularAvatarBlendshapeSync>(renderer.gameObject);
-                meshResult.ComponentCreated = true;
-            }
 
             // これから sync を書き換えることを Undo に記録（変更「前」に呼ぶのがルール）
             Undo.RecordObject(sync, UndoName);
 
-            // 登録済みのシェイプキー名を集める
-            // MA の Bindings.Contains() は「参照先オブジェクトの持ち方」まで比較するので、
-            // 参照パスだけで登録された既存 Binding（Prim など）と別物扱いになり二重登録してしまう。
-            // そこで「実際にボディを指しているか」で判定する
-            var registered = new HashSet<string>(
-                sync.Bindings
-                    .Where(b => b.ReferenceMesh != null && b.ReferenceMesh.Get(sync) == body.gameObject)
-                    .Select(b => b.Blendshape));
-
-            foreach (var shapeName in common)
+            foreach (var shapeName in toAdd)
             {
-                // HashSet.Add は「新しく追加できたら true」。Rust の HashSet::insert と同じ
-                if (!registered.Add(shapeName)) continue;
-
                 // BlendshapeBinding は struct（値型）なので、ここで作った値がリストにコピーされる
                 sync.Bindings.Add(new BlendshapeBinding
                 {
@@ -155,10 +175,7 @@ namespace SakuraWine.MAShapeSyncAuto
                     LocalBlendshape = shapeName,  // 衣装側のシェイプキー名（今は同名のみ。将来の名前ゆれ対応でここが変わる）
                     // RemapCurve は未設定のままで OK（MA が 0→0, 100→100 で初期化する）
                 });
-                meshResult.AddedCount++;
             }
-
-            meshResult.Status = meshResult.AddedCount > 0 ? MeshBindStatus.Added : MeshBindStatus.UpToDate;
 
             // 保存対象にする。シーン上の Prefab インスタンスの場合は、オーバーライドとして記録しないと
             // 変更が失われることがあるので、MA 本体（RuntimeUtil.MarkDirty）と同じ処理をする

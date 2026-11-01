@@ -190,6 +190,26 @@ namespace SakuraWine.MAShapeSyncAuto.Tests
         }
 
         [Test]
+        public void Preview_DoesNotModifyAnything()
+        {
+            BlendshapeSyncBinder.Preview(_body, _outfit);
+
+            Assert.That(_outer.GetComponent<ModularAvatarBlendshapeSync>(), Is.Null);
+            Assert.That(_skirt.GetComponent<ModularAvatarBlendshapeSync>(), Is.Null);
+        }
+
+        [Test]
+        public void Preview_MatchesBindResult()
+        {
+            var preview = BlendshapeSyncBinder.Preview(_body, _outfit);
+            var result = BlendshapeSyncBinder.Bind(_body, _outfit);
+
+            // プレビューで見せた内容と、実際に実行した結果が一致すること
+            Assert.That(preview.Meshes.Select(m => (m.Renderer, m.Status, m.AddedCount, m.ComponentCreated)),
+                Is.EqualTo(result.Meshes.Select(m => (m.Renderer, m.Status, m.AddedCount, m.ComponentCreated))));
+        }
+
+        [Test]
         public void Bind_CanBeUndoneInOneStep()
         {
             BlendshapeSyncBinder.Bind(_body, _outfit);

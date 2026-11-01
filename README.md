@@ -15,4 +15,7 @@ Work in progress.
 
 ## Usage
 
-`Tools > SakuraWine > MA Shape Sync Auto`
+1. Put the outfit inside the avatar (under the object with VRC Avatar Descriptor).
+2. Select the outfit root and open `Tools > SakuraWine > MA Shape Sync Auto`.
+3. Check the auto-detected body and the preview, then press **実行** (Run).
+   Everything can be reverted with a single Ctrl+Z.

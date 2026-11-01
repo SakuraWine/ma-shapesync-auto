@@ -1,0 +1,63 @@
+/*
+  見た目の定義（CSS に相当）。ただし USS は CSS のサブセットで、使えないプロパティもある
+  （例：font-weight は無く、代わりに -unity-font-style を使う）
+  レイアウトは Flexbox。既定の並び方向は column（縦）なので、横に並べたいときは flex-direction: row
+*/
+
+.root {
+    flex-grow: 1;
+    padding: 8px;
+}
+
+.title {
+    font-size: 16px;
+    -unity-font-style: bold;
+    margin-bottom: 8px;
+}
+
+.section-header {
+    -unity-font-style: bold;
+    margin-top: 10px;
+    margin-bottom: 4px;
+}
+
+/* 一覧の枠。flex-grow: 1 でウィンドウの残りの高さいっぱいに広げる */
+.mesh-list {
+    flex-grow: 1;
+    min-height: 80px;
+    border-width: 1px;
+    border-color: rgba(128, 128, 128, 0.4);
+    border-radius: 3px;
+    padding: 4px;
+}
+
+/* 一覧の 1 行：名前を左、詳細を右に置く */
+.mesh-row {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 2px 4px;
+    border-radius: 2px;
+}
+
+.mesh-row:hover {
+    background-color: rgba(128, 128, 128, 0.15);
+}
+
+/* スキップされるメッシュは薄く表示 */
+.mesh-row--skip {
+    opacity: 0.5;
+}
+
+.mesh-row__detail {
+    -unity-text-align: middle-right;
+}
+
+.buttons {
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-top: 8px;
+}
+
+.run-button {
+    min-width: 100px;
+}
