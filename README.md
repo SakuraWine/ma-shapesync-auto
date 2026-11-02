@@ -25,6 +25,34 @@
 | Modular Avatar | 1.18.7 |
 | VRChat Avatars SDK | 3.10.6 |
 
+## インストール
+
+VCC（VRChat Creator Companion）または ALCOM からインストールできます。
+
+### 1. VPM リポジトリを追加する
+
+#### かんたんな方法
+
+[SakuraWine Cellar のページ](https://sakurawine.github.io/vpm/) を開き、「VCC / ALCOM に追加」ボタンを押します。
+VCC（または ALCOM）が起動し、リポジトリの追加画面が表示されます。
+
+#### 手動で追加する方法
+
+1. 次の URL をコピーします。
+
+   ```text
+   https://sakurawine.github.io/vpm/index.json
+   ```
+
+2. VCC の場合：`Settings` → `Packages` → `Add Repository` に URL を貼り付けて追加します。
+   ALCOM の場合：設定画面のパッケージ（VPM リポジトリ）の項目から、リポジトリの追加で URL を貼り付けます。
+3. 「SakuraWine Cellar」が一覧に追加されていれば完了です。
+
+### 2. プロジェクトにパッケージを追加する
+
+1. VCC / ALCOM でアバターのプロジェクトを開き（Manage Project）、パッケージ一覧から **MA Shape Sync Auto** を追加します。
+2. Modular Avatar が入っていない場合は、一緒に自動で追加されます。
+
 ## 使い方
 
 1. 衣装をアバターの中（VRC Avatar Descriptor が付いたオブジェクトの配下）に入れます。
