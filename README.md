@@ -18,7 +18,7 @@
 現時点では、以下の組み合わせでのみ動作を確認しています。それ以外のアバター・衣装でも動く想定ですが、未確認です。
 
 | 項目 | 内容 |
-|---|---|
+| --- | --- |
 | アバター | ラムネ（Ramune） |
 | 衣装 | Prim（ラムネ対応版） |
 | Unity | 2022.3.22f1 |
@@ -33,7 +33,7 @@ VCC（VRChat Creator Companion）または ALCOM からインストールでき�
 
 #### かんたんな方法
 
-[SakuraWine Cellar のページ](https://sakurawine.github.io/vpm/) を開き、「VCC / ALCOM に追加」ボタンを押します。
+[Sakura-iro Wine Cellar のページ](https://sakurawine.github.io/vpm/) を開き、「VCC / ALCOM に追加」ボタンを押します。
 VCC（または ALCOM）が起動し、リポジトリの追加画面が表示されます。
 
 #### 手動で追加する方法
@@ -46,7 +46,7 @@ VCC（または ALCOM）が起動し、リポジトリの追加画面が表示�
 
 2. VCC の場合：`Settings` → `Packages` → `Add Repository` に URL を貼り付けて追加します。
    ALCOM の場合：設定画面のパッケージ（VPM リポジトリ）の項目から、リポジトリの追加で URL を貼り付けます。
-3. 「SakuraWine Cellar」が一覧に追加されていれば完了です。
+3. 「Sakura-iro Wine Cellar」が一覧に追加されていれば完了です。
 
 ### 2. プロジェクトにパッケージを追加する
 
