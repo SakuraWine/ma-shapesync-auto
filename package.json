@@ -1,7 +1,7 @@
 {
   "name": "io.github.sakurawine.ma-shapesync-auto",
   "displayName": "MA Shape Sync Auto",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "unity": "2022.3",
   "description": "衣装のメッシュに、アバターのボディと共通するシェイプキーの Modular Avatar Blendshape Sync を自動で設定します。",
   "license": "MIT",

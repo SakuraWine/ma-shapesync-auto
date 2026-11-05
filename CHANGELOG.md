@@ -6,6 +6,8 @@
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-11-05
+
 ### 変更
 
 - メニューの場所を `Tools/Sakura-iro Wine Cellar/MA Shape Sync Auto` に変更
