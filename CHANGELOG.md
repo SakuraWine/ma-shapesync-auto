@@ -8,6 +8,7 @@
 
 ### 変更
 
+- メニューの場所を `Tools/Sakura-iro Wine Cellar/MA Shape Sync Auto` に変更
 - README にインストール方法（VPM リポジトリの追加手順）を追加
 - package.json に `documentationUrl` を追加
 - `LICENSE` を `LICENSE.md` に改名（GitHub で `.meta` がライセンスとして表示される問題への対策）

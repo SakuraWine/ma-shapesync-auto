@@ -10,7 +10,7 @@ namespace SakuraWine.MAShapeSyncAuto
     {
         // [MenuItem] 属性を付けた static メソッドが、Unity のメニューに登録される
         // （Rust の #[...] 属性 / Python のデコレータのようなもの）
-        [MenuItem("Tools/SakuraWine/MA Shape Sync Auto")]
+        [MenuItem("Tools/Sakura-iro Wine Cellar/MA Shape Sync Auto")]
         private static void Open() => ShapeSyncWindow.Open();
     }
 }

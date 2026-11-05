@@ -20,7 +20,7 @@
 | 項目 | 内容 |
 | --- | --- |
 | アバター | ラムネ（Ramune） |
-| 衣装 | Prim（ラムネ対応版） |
+| 衣装 | Prim Romp（ラムネ対応） |
 | Unity | 2022.3.22f1 |
 | Modular Avatar | 1.18.7 |
 | VRChat Avatars SDK | 3.10.6 |
@@ -56,7 +56,7 @@ VCC（または ALCOM）が起動し、リポジトリの追加画面が表示�
 ## 使い方
 
 1. 衣装をアバターの中（VRC Avatar Descriptor が付いたオブジェクトの配下）に入れます。
-2. Hierarchy で衣装のルートオブジェクトを選択し、`Tools > SakuraWine > MA Shape Sync Auto` を開きます。
+2. Hierarchy で衣装のルートオブジェクトを選択し、`Tools > Sakura-iro Wine Cellar > MA Shape Sync Auto` を開きます。
 3. 自動で検出されたボディとプレビューを確認し、**実行** を押します。
    - ボディが違う場合は、ドロップダウンから選び直せます。
    - 実行した内容は Ctrl+Z 1 回でまとめて元に戻せます。
